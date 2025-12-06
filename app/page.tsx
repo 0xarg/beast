@@ -6,15 +6,19 @@ import Features from "./components/features";
 
 const Home = () => {
   return (
-    <div className="font-display h-full w-full bg-[#FDF2EC]">
-      <Container>
-        <Navbar />
-        <Hero />
-        <Container className="bg-red-900 text-4xl">
+    <>
+      <div className="font-display h-full w-full bg-[#FDF2EC]">
+        <Container>
+          <Navbar />
+          <Hero />
+        </Container>
+      </div>
+      <div className="font-display h-full w-full bg-[#F8F3FF]">
+        <Container>
           <Features />
         </Container>
-      </Container>
-    </div>
+      </div>
+    </>
   );
 };
 

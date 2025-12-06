@@ -33,26 +33,26 @@ const Hero = () => {
       </div>
       <div className="mt-30 flex items-center justify-around">
         <div className="flex flex-col items-center gap-3">
-          <h1 className="text- text-8xl font-bold text-[#FF6928]">7+</h1>
+          <h1 className="text- text-7xl font-bold text-[#FF6928]">7+</h1>
           <p className="text-2xl font-bold text-neutral-800">
             Years on the market
           </p>
         </div>
         <div className="flex flex-col items-center gap-3">
-          <h1 className="text- text-8xl font-bold text-[#FF6928]">$20M+</h1>
+          <h1 className="text- text-7xl font-bold text-[#FF6928]">$20M+</h1>
           <p className="text-2xl font-bold text-neutral-800">
             Saved in infrastructure costs
           </p>
         </div>
         <div className="flex flex-col items-center gap-3">
-          <h1 className="text- text-8xl font-bold text-[#FF6928]">$10B+</h1>
+          <h1 className="text- text-7xl font-bold text-[#FF6928]">$10B+</h1>
           <p className="text-2xl font-bold text-neutral-800">
             Clients' market capitalization
           </p>
         </div>
       </div>
       <div className="mt-30 flex items-center justify-center">
-        <h1 className="max-w-6xl text-center text-3xl leading-normal font-semibold tracking-wider">
+        <h1 className="max-w-3xl text-center text-lg leading-normal font-semibold tracking-wider lg:text-2xl">
           RPC Fast is the{" "}
           <span className="bg- rounded-xl bg-[#E3B4FA] px-2 py-1">
             {" "}
