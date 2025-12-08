@@ -21,7 +21,7 @@ const Features = () => {
             Best-in-Market Latency
           </h2>
           <p className="max-w-xl text-lg font-semibold tracking-tight text-neutral-700">
-            Direct ok access ensures your requests work faster than any shared
+            Direct ok access ensurecs your requests work faster than any shared
             API
           </p>
         </div>
