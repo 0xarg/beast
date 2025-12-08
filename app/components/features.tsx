@@ -3,11 +3,11 @@ import React from "react";
 const Features = () => {
   return (
     <div className="mt-20 flex flex-col flex-wrap items-center justify-center">
-      <h1 className="text-center text-xl font-bold text-neutral-800 md:text-3xl">
+      <h1 className="mb-10 text-center text-xl font-bold text-neutral-800 md:text-3xl">
         RPC Fast vs Traditional blockchain APIs
       </h1>
       <div className="flex w-full flex-wrap items-center justify-center gap-10">
-        <div className="mt-6 flex max-w-lg flex-wrap items-center justify-center gap-5 rounded-3xl border-3 border-b-6 border-[#E3B4FA] bg-white px-10 py-10 md:flex-nowrap">
+        <div className="flex max-w-lg flex-wrap items-center justify-center gap-5 rounded-3xl border-3 border-b-6 border-[#E3B4FA] bg-white px-10 py-10 md:flex-nowrap">
           <h2 className="inline-block rounded-2xl bg-[#E3B4FA] px-2 py-3 text-center text-2xl font-semibold tracking-wide">
             Best-in-Market Latency
           </h2>
@@ -16,7 +16,7 @@ const Features = () => {
             API
           </p>
         </div>
-        <div className="mt-6 flex max-w-lg flex-wrap items-center justify-center gap-5 rounded-3xl border-3 border-b-6 border-[#FFCD9F] bg-white px-10 py-10 md:flex-nowrap">
+        <div className="flex max-w-lg flex-wrap items-center justify-center gap-5 rounded-3xl border-3 border-b-6 border-[#FFCD9F] bg-white px-10 py-10 md:flex-nowrap">
           <h2 className="inline-block rounded-2xl bg-[#FFCD9F] px-2 py-3 text-center text-2xl font-semibold tracking-wide">
             Tailored to Your Needs
           </h2>
@@ -38,7 +38,8 @@ const Features = () => {
         </div>
         <div className="mt-6 flex max-w-lg flex-wrap items-center justify-center gap-5 rounded-3xl border-3 border-b-6 border-[#222222] bg-white px-10 py-10 md:flex-nowrap">
           <h2 className="inline-block rounded-2xl bg-[#222222] px-2 py-3 text-center text-2xl font-semibold tracking-wider text-white">
-            We Handle Everything
+            We <br />
+            Handle Everything
           </h2>
           <p className="max-w-xl text-lg font-semibold tracking-tight text-neutral-700">
             Continuous expert support and rapid incident solving — guaranteed
