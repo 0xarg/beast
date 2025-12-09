@@ -8,8 +8,10 @@ import Link from "next/link";
 import React, { useState } from "react";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const links = [
     {
       title: `Fintech Infra`,
@@ -48,7 +50,10 @@ const Navbar = () => {
         {!wallet.connected && <WalletMultiButton />}
         {wallet.connected && (
           <div className="hidden items-center gap-3 md:flex">
-            <button className="cursor-pointer rounded-lg border-2 border-[#FF6928] px-3 py-3 font-semibold text-neutral-900 transition duration-200 hover:border-transparent hover:bg-[#FF8540] hover:text-white">
+            <button
+              onClick={() => router.push("/dashboard")}
+              className="cursor-pointer rounded-lg border-2 border-[#FF6928] px-3 py-3 font-semibold text-neutral-900 transition duration-200 hover:border-transparent hover:bg-[#FF8540] hover:text-white"
+            >
               Dashboard
             </button>
             <WalletDisconnectButton />
