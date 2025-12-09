@@ -4,6 +4,7 @@ import Navbar from "./components/navbar";
 import Hero from "./components/hero";
 import Features from "./components/features";
 import Features2 from "./components/features2";
+import Footer from "./components/footer";
 
 const Home = () => {
   return (
@@ -22,6 +23,11 @@ const Home = () => {
       <div className="font-display h-full w-full bg-[#FDF2EC]">
         <Container className="">
           <Features2 />
+        </Container>
+      </div>
+      <div className="font-display h-full w-full bg-[#222222]">
+        <Container>
+          <Footer />
         </Container>
       </div>
     </>
