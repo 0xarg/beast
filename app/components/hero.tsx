@@ -52,7 +52,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="mt-30 flex items-center justify-center">
-        <h1 className="max-w-3xl text-center text-lg leading-normal font-semibold tracking-wider lg:text-2xl">
+        <h1 className="max-w-4xl text-center text-lg leading-relaxed font-semibold tracking-wider lg:text-2xl">
           RPC Fast is the{" "}
           <span className="bg- rounded-xl bg-[#E3B4FA] px-2 py-1">
             {" "}
@@ -65,7 +65,6 @@ const Hero = () => {
           </span>
           , fast TXs landing,{" "}
           <span className="bg- rounded-xl bg-[#B4DCFA] px-2 py-1">
-            {" "}
             no credit limits
           </span>
           , and expert{" "}
@@ -73,7 +72,6 @@ const Hero = () => {
             {" "}
             support
           </span>
-          .
         </h1>
       </div>
     </div>
