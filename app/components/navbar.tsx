@@ -27,35 +27,69 @@ const Navbar = () => {
     },
   ];
 
+  const authLinks = [
+    {
+      title: "Dashboard",
+      link: "/dashboard",
+    },
+    {
+      title: "Airdrop",
+      link: "/airdrop",
+    },
+    {
+      title: "Transaction",
+      link: "/transaction",
+    },
+    {
+      title: "LaunchPad",
+      link: "/launchpad",
+    },
+    {
+      title: "Swap",
+      link: "/swap",
+    },
+  ];
+
   const connection = useConnection();
   const wallet = useWallet();
   return (
     <div className="mt-3 flex flex-wrap items-center justify-around sm:gap-5">
       <div>
-        <h1 className="text-xl font-semibold text-neutral-900">BEAST</h1>
+        <h1 className="text-2xl font-semibold text-neutral-900">BEAST</h1>
       </div>
       <div className="hidden items-center gap-5 font-medium text-neutral-800 sm:gap-5 lg:flex">
-        {links.map((link, index) => (
-          <Link
-            key={index}
-            href={link.link}
-            className="rounded-lg border-2 border-transparent px-2 py-3 hover:border-[#FFCD9F] hover:bg-white"
-          >
-            {link.title}
-          </Link>
-        ))}
+        {!wallet.connected &&
+          links.map((link, index) => (
+            <Link
+              key={index}
+              href={link.link}
+              className="rounded-lg border-2 border-transparent px-2 py-3 hover:border-[#FFCD9F] hover:bg-white"
+            >
+              {link.title}
+            </Link>
+          ))}
+        {wallet.connected &&
+          authLinks.map((link, index) => (
+            <Link
+              key={index}
+              href={link.link}
+              className="rounded-lg border-2 border-transparent px-2 py-3 hover:border-[#FFCD9F] hover:bg-white"
+            >
+              {link.title}
+            </Link>
+          ))}
       </div>
       <div className="hidden items-center gap-3 md:flex">
         {/* <button className="cursor-pointer rounded-lg border-2 border-[#FF6928] bg-[#FF6928] px-3 py-3 font-semibold text-white transition duration-200 hover:border-transparent hover:bg-[#FF8540]"> */}
         {!wallet.connected && <WalletMultiButton />}
         {wallet.connected && (
           <div className="hidden items-center gap-3 md:flex">
-            <button
+            {/* <button
               onClick={() => router.push("/dashboard")}
               className="cursor-pointer rounded-lg border-2 border-[#FF6928] px-3 py-3 font-semibold text-neutral-900 transition duration-200 hover:border-transparent hover:bg-[#FF8540] hover:text-white"
             >
               Dashboard
-            </button>
+            </button> */}
             <WalletDisconnectButton />
           </div>
         )}
