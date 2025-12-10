@@ -30,7 +30,7 @@ const Navbar = () => {
   const connection = useConnection();
   const wallet = useWallet();
   return (
-    <div className="flex flex-wrap items-center justify-around sm:gap-5">
+    <div className="mt-3 flex flex-wrap items-center justify-around sm:gap-5">
       <div>
         <h1 className="text-xl font-semibold text-neutral-900">BEAST</h1>
       </div>
