@@ -39,7 +39,7 @@ const page = () => {
                   size={35}
                   onClick={() => {
                     copy(wallet.publicKey?.toString() ?? "no Wallet Key");
-                    toast("Public key copied to clipboard");
+                    toast("Public key copieded to clipboard");
                   }}
                 />
               </div>
