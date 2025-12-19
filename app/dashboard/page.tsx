@@ -12,9 +12,9 @@ import Link from "next/link";
 const page = () => {
   const connection = useConnection();
   const wallet = useWallet();
-  // if (!wallet.connected) {
-  //   return <ConnectWallet />;
-  // }
+  if (!wallet.connected) {
+    return <ConnectWallet />;
+  }
   return (
     <div className="h-screen w-full bg-[#FDF2EC]">
       <Container>
@@ -32,7 +32,7 @@ const page = () => {
             <div className="w-full rounded-2xl border-2 border-[#FDBA74] bg-white px-8 py-8">
               <div className="flex items-center justify-between">
                 <h3 className="rounded-xl bg-[#FED7AA] px-3 py-2 font-semibold text-[#7C2D12]">
-                  Wallets Addreshssgs
+                  Wallets Address
                 </h3>
                 <Copy
                   className="rounedd-2xl cursor-pointer px-2 py-2 transition duration-200 hover:bg-[#F9FAFB]"
