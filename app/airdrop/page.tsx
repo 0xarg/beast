@@ -13,9 +13,10 @@ const page = () => {
   }
   return (
     <div className="h-screen w-full bg-[#FDF2EC]">
-      <Container>
-        <Navbar />
-        {/* <div className="mt-20 h-full flex-col flex-wrap items-center justify-center overflow-hidden px-5 md:flex-nowrap">
+      {/* <Container> */}
+      hi
+      {/* <Navbar /> */}
+      {/* <div className="mt-20 h-full flex-col flex-wrap items-center justify-center overflow-hidden px-5 md:flex-nowrap">
           <div className="leading-loose">
             <h1 className="text-4xl font-semibold tracking-wide text-neutral-800">
               Dashboard
@@ -25,7 +26,7 @@ const page = () => {
             </p>
           </div>
         </div> */}
-      </Container>
+      {/* </Container> */}
     </div>
   );
 };
