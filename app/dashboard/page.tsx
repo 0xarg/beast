@@ -192,7 +192,7 @@ const page = () => {
                 </h3>
               </div>
               <div className="mt-3">
-                <h3 className="text-xl font-semibold">Wallet Info</h3>
+                <h3 className="text-xl font-semibold">Wallet Info </h3>
               </div>
               <div className="mt-2 flex flex-col flex-wrap justify-between gap-2 md:flex-nowrap">
                 <Link href={"/"} className="font-semibold text-[#3B82F6]">
