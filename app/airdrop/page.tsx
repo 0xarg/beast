@@ -28,6 +28,8 @@ const page = () => {
     try {
       const lamports = await connection.getBalance(wallet.publicKey);
       setBalance(lamports / LAMPORTS_PER_SOL);
+      const txn = await connection.getSignaturesForAddress(wallet.publicKey);
+      console.log(txn);
       setLoader(false);
     } catch (error) {
       console.log("Failed to fetch the balance");
