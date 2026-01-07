@@ -16,36 +16,158 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  AuthorityType,
+  createAssociatedTokenAccountInstruction,
+  createInitializeMetadataPointerInstruction,
+  createInitializeMintInstruction,
+  createMintToInstruction,
+  createSetAuthorityInstruction,
+  ExtensionType,
+  getAssociatedTokenAddressSync,
+  getMintLen,
+  LENGTH_SIZE,
+  TOKEN_2022_PROGRAM_ID,
+  TYPE_SIZE,
+} from "@solana/spl-token";
+import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Keypair } from "@solana/web3.js";
+import {
+  Keypair,
+  LAMPORTS_PER_SOL,
+  SystemProgram,
+  Transaction,
+} from "@solana/web3.js";
+import { createInitializeInstruction, pack } from "@solana/spl-token-metadata";
+import ConnectWallet from "../components/connectWallet";
 
 interface MetaData {
-  name?: string;
-  symbol?: string;
-  imageUrl?: string;
-  supply?: number;
-  isFreeze?: boolean;
-  isUpdate?: boolean;
-  isMint?: boolean;
+  name: string;
+  symbol: string;
+  imageUrl: string;
+  supply: number;
+  isFreeze: boolean;
+  isUpdate: boolean;
+  isMint: boolean;
 }
 
 const page = () => {
-  const [data, setData] = useState<MetaData>({});
+  const [data, setData] = useState<MetaData>({
+    name: "",
+    symbol: "",
+    imageUrl: "",
+    supply: 0,
+    isFreeze: false,
+    isMint: false,
+    isUpdate: false,
+  });
   const { connection } = useConnection();
   const wallet = useWallet();
+
   const createToken = useCallback(async () => {
+    if (!wallet || !wallet.publicKey) {
+      return;
+    }
+
     const mintKeypair = Keypair.generate();
     const metadata = {
       mint: mintKeypair.publicKey,
-      name: data.name,
-      symbol: data.symbol,
+      name: data.name ?? "X",
+      symbol: data.symbol ?? "X",
+      uri: "https://raw.githubusercontent.com/0xarg/beast/refs/heads/main/lib/metadata.json",
+      additionalMetadata: [],
     };
-  }, [data]);
 
+    const mintLen = getMintLen([ExtensionType.MetadataPointer]);
+    const metadataLen = TYPE_SIZE + LENGTH_SIZE + pack(metadata).length;
+    const lamports = await connection.getMinimumBalanceForRentExemption(
+      mintLen + metadataLen,
+    );
+
+    const associatedToken = getAssociatedTokenAddressSync(
+      mintKeypair.publicKey,
+      wallet.publicKey,
+      false,
+      TOKEN_2022_PROGRAM_ID,
+    );
+    console.log(associatedToken.toBase58());
+
+    const transaction = new Transaction().add(
+      SystemProgram.createAccount({
+        fromPubkey: wallet.publicKey,
+        newAccountPubkey: mintKeypair.publicKey,
+        space: mintLen,
+        lamports,
+        programId: TOKEN_2022_PROGRAM_ID,
+      }),
+      createInitializeMetadataPointerInstruction(
+        mintKeypair.publicKey,
+        wallet.publicKey,
+        mintKeypair.publicKey,
+        TOKEN_2022_PROGRAM_ID,
+      ),
+      createInitializeMintInstruction(
+        mintKeypair.publicKey,
+        9,
+        wallet.publicKey,
+        wallet.publicKey,
+        TOKEN_2022_PROGRAM_ID,
+      ),
+      createInitializeInstruction({
+        programId: TOKEN_2022_PROGRAM_ID,
+        mint: mintKeypair.publicKey,
+        metadata: mintKeypair.publicKey,
+        name: metadata.name,
+        symbol: metadata.symbol,
+        uri: metadata.uri,
+        mintAuthority: wallet.publicKey,
+        updateAuthority: wallet.publicKey,
+      }),
+      createAssociatedTokenAccountInstruction(
+        wallet.publicKey,
+        associatedToken,
+        wallet.publicKey,
+        mintKeypair.publicKey,
+        TOKEN_2022_PROGRAM_ID,
+      ),
+      createMintToInstruction(
+        mintKeypair.publicKey,
+        associatedToken,
+        wallet.publicKey,
+        LAMPORTS_PER_SOL * (data.supply ?? 1),
+        [],
+        TOKEN_2022_PROGRAM_ID,
+      ),
+      createSetAuthorityInstruction(
+        mintKeypair.publicKey, // mint
+        wallet.publicKey, // current mint authority
+        AuthorityType.MintTokens,
+        data.isMint ? null : wallet.publicKey,
+        [],
+        TOKEN_2022_PROGRAM_ID,
+      ),
+      createSetAuthorityInstruction(
+        mintKeypair.publicKey, // mint
+        wallet.publicKey, // current mint authority
+        AuthorityType.FreezeAccount,
+        data.isFreeze ? null : wallet.publicKey,
+        [],
+        TOKEN_2022_PROGRAM_ID,
+      ),
+    );
+    transaction.feePayer = wallet.publicKey;
+    transaction.recentBlockhash = (
+      await connection.getLatestBlockhash()
+    ).blockhash;
+    transaction.partialSign(mintKeypair);
+    await wallet.sendTransaction(transaction, connection);
+  }, [data]);
+  if (!wallet || !wallet.publicKey) {
+    return <ConnectWallet />;
+  }
   return (
     <div className="h-screen w-full bg-neutral-100">
       <Navbar />
@@ -62,7 +184,12 @@ const page = () => {
               </CardAction> */}
             </CardHeader>
             <CardContent>
-              <form onSubmit={() => createToken()}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  createToken();
+                }}
+              >
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="name">Name</Label>
@@ -187,7 +314,7 @@ const page = () => {
                   </HoverCard>{" "}
                 </div>
               </div>
-              <Button type="submit" className="w-full">
+              <Button onClick={() => createToken()} className="w-full">
                 Create
               </Button>
               {/* <Button variant="outline" className="w-full">
