@@ -109,6 +109,7 @@ const page = () => {
         mintKeypair.publicKey,
         TOKEN_2022_PROGRAM_ID,
       ),
+
       createInitializeMintInstruction(
         mintKeypair.publicKey,
         9,
