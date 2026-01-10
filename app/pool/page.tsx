@@ -15,7 +15,9 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { PublicKey } from "@solana/web3.js";
 import {
   TOKEN_2022_PROGRAM_ID,
+  TOKEN_PROGRAM_ID,
   getAssociatedTokenAddress,
+  getOrCreateAssociatedTokenAccount,
 } from "@solana/spl-token";
 import ConnectWallet from "../components/connectWallet";
 
@@ -34,6 +36,7 @@ interface PoolInfo {
 export default function Page() {
   const { connection } = useConnection();
   const { publicKey, signAllTransactions } = useWallet();
+  const wallet = useWallet();
 
   const [status, setStatus] = useState("");
   const [poolInfo, setPoolInfo] = useState<PoolInfo | null>(null);
@@ -49,7 +52,7 @@ export default function Page() {
     "CeCkcRKBzN9v4sU8pWyAfBKuqP3mAGh7KcPzL5hCvQe3",
   );
   const quoteMint = new PublicKey(
-    "4UePPL5M7bMmFzH89Pjq3Zd1RKbrRGJSMJGhMyaFYuei",
+    "So11111111111111111111111111111111111111112",
   );
 
   // Initialize Raydium
@@ -97,9 +100,14 @@ export default function Page() {
         quoteMint,
         publicKey,
         false,
-        TOKEN_2022_PROGRAM_ID,
+        new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"),
       );
-
+      // const tokenAccount = await getOrCreateAssociatedTokenAccount(
+      //   connection,
+      //   payer:wallet.signIn()!,
+      //   quoteMint,
+      //   publicKey, // Owner of the ATA
+      // );
       const quoteBalance = await connection.getTokenAccountBalance(quoteATA);
       console.log("Quote token balance:", quoteBalance.value.uiAmount);
 
@@ -290,6 +298,10 @@ export default function Page() {
         mintAAmount: mintAAmount.toString(),
         mintBAmount: mintBAmount.toString(),
       });
+
+      // await raydiumInstance.cpmm.swap({
+
+      // })
 
       const { execute, extInfo } = await raydiumInstance.cpmm.createPool({
         programId: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM,
